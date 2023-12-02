@@ -9,9 +9,10 @@ submit year day part:
 
 check: fmt lint test
 
-fmt:
-  gosimports -local github.com/maolonglong -w .
-  gofumpt -extra -w .
+fmt: _janet-format
+  fd --type=file --extension go --exec gosimports -local github.com/maolonglong -w
+  fd --type=file --extension go --exec gofumpt -extra -w
+  fd --type=file --extension janet --exec janet-format
 
 lint:
   go vet ./...
@@ -31,7 +32,17 @@ test:
 
 run-2023-1-1: (_go "2023" "1" "1") ## 54634
 run-2023-1-2: (_go "2023" "1" "2") ## 53855
+run-2023-2-1: (_janet "2023" "2" "1") ## 2551
+run-2023-2-2: (_janet "2023" "2" "2") ## 62811
 
 [private]
 _go year day part:
   cd ./{{year}}/{{day}}/{{part}} && go run main.go
+
+[private]
+_janet year day part:
+  cd ./{{year}}/{{day}}/{{part}} && janet main.janet
+
+[private]
+_janet-format:
+  [ -f ".jpm_tree/bin/janet-format" ] || jpm install spork
