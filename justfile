@@ -68,6 +68,7 @@ run-2023-18-1: (_go "2023" "18" "1") ## 46394
 # run-2023-18-2: (_go "2023" "18" "2") ## -
 run-2023-19-1: (_go "2023" "19" "1") ## 383682
 run-2023-19-2: (_go "2023" "19" "2") ## 117954800808317
+run-2023-20-1: (_racket "2023" "20" "1") ## 818649769
 
 [private]
 _go year day part:
@@ -76,6 +77,10 @@ _go year day part:
 [private]
 _janet year day part:
   cd ./{{year}}/{{day}}/{{part}} && janet main.janet
+
+[private]
+_racket year day part:
+  cd ./{{year}}/{{day}}/{{part}} && racket main.rkt
 
 [private]
 _janet-format:
